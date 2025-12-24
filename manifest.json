@@ -1,0 +1,40 @@
+// Scroll animations
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => e.isIntersecting && e.target.classList.add('show'));
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.hidden, .photo').forEach(el => observer.observe(el));
+
+// Counter
+function updateCounter() {
+  const start = new Date('2023-05-03T21:56:00');
+  const now = new Date();
+  let diff = Math.floor((now - start) / 1000);
+
+  const days = Math.floor(diff / 86400);
+  const hours = Math.floor((diff % 86400) / 3600);
+
+  document.getElementById('counter').innerHTML =
+    `${days} dias<br>${hours} horas de histórias e conexão`;
+}
+setInterval(updateCounter, 1000);
+updateCounter();
+
+// Music
+const music = document.getElementById('bg-music');
+const toggle = document.getElementById('music-toggle');
+let playing = false;
+
+toggle.onclick = () => {
+  playing ? music.pause() : music.play();
+  playing = !playing;
+};
+
+// Curiosidades
+document.querySelectorAll('.reveal').forEach(card => {
+  card.onclick = () => card.classList.toggle('open');
+});
+
+// Replay
+document.getElementById('replay').onclick = () =>
+  window.scrollTo({ top: 0, behavior: 'smooth' });
